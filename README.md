@@ -11,8 +11,6 @@
                                         -  JSON/ 
                                                 - cJSON.c, cJSON.h, CMakeLists.txt 
                        -  publish.py
-                       -  lib/
-                               - contain the shared libraries of aws-iot-sdk
                        -  certificates/
                                      - xxxx-certificate.pem.crt, xxxx-private.pem.key, root-CA.crt
                        -  videoaws
@@ -37,19 +35,18 @@
 
 ### 1. Setting up the Application SDK on the host system:
 
-   - To Install application sdk, Download the Application SDK from below url:
-      -  https://thundercomm.s3.ap-northeast-1.amazonaws.com/shop/doc/1593776185472315/Turbox-C610_Application-SDK_v1.0.tar.gz
-  
-   - Unpack the sdk using below command 
-       ```
-        tar -xzvf Turbox-C610_Application-SDK_v1.0.tar.gz
-       ```
+ - To Install the Application SDK,  download the sdk using  url given in the section 2 of the below document 
+  ```
+    “[TC_C610LE_23110]_TurboX C610 OK_Application SDK User Manual_V1.0.pdf“.
+  ```
+    
+  - After downloading, unpack the application sdk and  execute the below script file it will ask the default target directory, press enter and type 'Y'
+    ```
+    /# ./oecore-x86_64-armv7ahf-neon-toolchain-nodistro.0.sh
+    ```
 
-   - Execute the below script file, it will ask the default target directory, press enter and input 'Y'
-       ```
-       ./oecore-x86_64-armv7ahf-neon-toolchain-nodistro.0.sh
-       ```
-   - Now the environment setup is complete.
+   - This complete the environment setup.
+
 
 ### 2. Camera Environment configuration setup on the target device.
    - To setup the camera environment configuration follow the given document ‘Turbox-C610_Open_Kit_Software_User_Manual_LE1.0_v2.0.pdf’ In given url 
@@ -124,6 +121,7 @@ sysroots-components/armv7ahf-neon/aws-iot-device-sdk-cpp-v2/usr/”,
  **Step-8:** Rename the binary ‘basic_pub_sub’ to ‘publish’ and copy to the application directory. Also copy the libcJSON.so file to lib folder in appication directory.      
     ```
      $ cp <build_directory>/tmp-gibc/work/armv7ahf-neon-oe-linux-gnueabi/aws-iot-device-sdk-cpp-v2/1.6.0-r0/build/samples/mqtt/basic_pub_sub/publish  /home/user/iot_aws/.
+ 
       $ cp <build_directory>/tmp-gibc/work/armv7ahf-neon-oe-linux-gnueabi/aws-iot-device-sdk-cpp-v2/1.6.0-r0/build/samples/mqtt/basic_pub_sub/libcJSON.so  /home/user/iot_aws/lib/.
     ```
 
@@ -197,7 +195,7 @@ sysroots-components/armv7ahf-neon/aws-iot-device-sdk-cpp-v2/usr/”,
   ```
   - To enable wifi connection
   ```
-   /# wpa_supplicant -Dnl80211 -iwlan0 -c /etc/misc/wifi/Wpa_Supplicant.conf -ddddt &
+   /# wpa_supplicant -Dnl80211 -iwlan0 -c /etc/misc/wifi/wpa_supplicant.conf -ddddt &
    /# dhcpcd wlan0
  ```
  - To add data/aws-library to the library path 
